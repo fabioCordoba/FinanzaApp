@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 
 @Table(name = "Movimiento")
@@ -25,18 +27,18 @@ public class Movimiento implements Serializable {
 	private String descripcion;
 
 	private int monto;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
 	private Date fecha;
 
 	private boolean movimiento;
 
 	
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -83,5 +85,9 @@ public class Movimiento implements Serializable {
 	public void setMovimiento(boolean movimiento) {
 		this.movimiento = movimiento;
 	}
+
+	 
+	
+	
 
 }
