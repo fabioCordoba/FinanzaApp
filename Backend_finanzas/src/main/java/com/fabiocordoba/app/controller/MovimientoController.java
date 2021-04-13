@@ -1,5 +1,6 @@
 package com.fabiocordoba.app.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,10 @@ public class MovimientoController {
 	public ResponseEntity<?> create(@RequestBody Movimiento movimiento){
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(movimiento));
 	}
-	
+	@GetMapping
+	public List<Movimiento >findAll(){
+		return service.getAll();
+	}
 	
 	@GetMapping("/{id}")
 	
@@ -47,15 +51,16 @@ public class MovimientoController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> delete(@RequestBody Movimiento movimiento){
+	public ResponseEntity<?> delete(@PathVariable long id){
 		
-		 Optional<Movimiento >movimient=service.getMovimiento(movimiento.getId());
+		 Optional<Movimiento >movimient=service.getMovimiento(id);
+		 Movimiento movimiento=movimient.get();
 		 if(!movimient.isPresent()) {
 			 return ResponseEntity.notFound().build();
 		 }
 		
 		 service.delete(movimiento);
-		 return ResponseEntity.ok(movimiento);
+		 return ResponseEntity.ok("Eliminado correctamente");
 		 
 		 
 		 
